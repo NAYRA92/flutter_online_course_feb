@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'home_page.dart';
+
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -56,6 +58,7 @@ class _LoginPageState extends State<LoginPage> {
                       setState(() {
                      errorMessage = "";
                       });
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=> HomePage()));
                     }
                     else{
                       //هنا يتم كتابة رسالة الخطأ
