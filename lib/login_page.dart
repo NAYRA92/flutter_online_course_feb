@@ -16,6 +16,8 @@ class _LoginPageState extends State<LoginPage> {
 
   String errorMessage = "";
 
+  bool visible_icon = false;
+
 
   @override
   Widget build(BuildContext context) {
@@ -24,15 +26,16 @@ class _LoginPageState extends State<LoginPage> {
         child: Directionality(
           textDirection: TextDirection.rtl,
           child: Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(25.0),
             child: Column(
               children: [
                 SizedBox(height: 30,),
                 Image(
-                  image: NetworkImage("https://storage.googleapis.com/cms-storage-bucket/3461c6a5b33c339001c5.jpg"),
+                  image: AssetImage("images/logo.png"), //عشان نظهر صورة من التطبيق محلية
                   width: 150,
                   height: 150,
                   ),
+                SizedBox(height: 30,),
                 TextFormField(
                   controller: _name,
                   decoration: InputDecoration(
@@ -41,14 +44,24 @@ class _LoginPageState extends State<LoginPage> {
                     prefixIcon: Icon(Icons.person)
                   ),
                 ),
+                SizedBox(height: 30,),
                 TextFormField(
                   controller: _password,
-                  obscureText: true,
+                  obscureText: visible_icon ? false : true,
                   decoration: InputDecoration(
                     hintText: "كلمة المرور",
                     labelText: "كلمة المرور",
                     prefixIcon: Icon(Icons.lock),
-                    suffixIcon: Icon(Icons.visibility_off)
+                    suffixIcon: IconButton(
+                      onPressed: (){
+                        setState(() {
+                          visible_icon ? visible_icon = false : visible_icon = true;
+                        });
+                      }, 
+                      icon: Icon(
+                        visible_icon ? Icons.visibility : Icons.visibility_off
+                        ),
+                      )
                   ),
                 ),
                 SizedBox(height: 30,),
@@ -69,7 +82,10 @@ class _LoginPageState extends State<LoginPage> {
                   }, 
                   child: Text("تسجيل دخول")),
                 Text(errorMessage),
-                Text("مستخدم جديد؟ تسجيل حساب"),
+                TextButton(
+                  onPressed: (){}, 
+                  child: Text("مستخدم جديد؟ تسجيل حساب"))
+                ,
               ],
             ),
           ),
