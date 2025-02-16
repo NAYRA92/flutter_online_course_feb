@@ -1,6 +1,6 @@
-# flutter_online_course_feb
+# flutter_online_course_feb 2025
 
-A new Flutter project.
+It a project for an online course.
 
 ## Getting Started
 
