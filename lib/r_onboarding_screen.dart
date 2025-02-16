@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_online_course_feb/r_home_screen.dart';
+
+import 'constants.dart';
 
 
 class ROnboardingScreen extends StatefulWidget {
@@ -45,9 +48,12 @@ class _ROnboardingScreenState extends State<ROnboardingScreen> {
                 height: 50,
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Color(0xff53B175)
+                    backgroundColor: myGreenColor
                   ),
-                  onPressed: (){}, 
+                  onPressed: (){
+                    Navigator.push(context, 
+                    MaterialPageRoute(builder: (context) => RHomeScreen()));
+                  }, 
                   child: Text("Get Started",
                   style: TextStyle(
                     color: Colors.white,

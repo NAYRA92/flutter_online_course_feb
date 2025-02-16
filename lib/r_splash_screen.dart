@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_online_course_feb/r_onboarding_screen.dart';
 
+import 'constants.dart';
+
 
 class RSplashScreen extends StatelessWidget {
   const RSplashScreen({super.key});
@@ -12,7 +14,7 @@ class RSplashScreen extends StatelessWidget {
         builder: (context) => ROnboardingScreen()));
     });
     return Scaffold(
-      backgroundColor: Color(0xff53B175),
+      backgroundColor: myGreenColor,
       body: Center(
         child: Image.asset(
           "images/r_logo.png",
