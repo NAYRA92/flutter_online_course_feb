@@ -2,9 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_online_course_feb/course_widgets_page.dart';
 import 'package:flutter_online_course_feb/login_page.dart';
 
+import 'animated_btn_nav_bar_example.dart';
 import 'home_page.dart';
 import 'r_onboarding_screen.dart';
 import 'r_splash_screen.dart';
+import 'btm_nav_bar_example.dart';
+import 'salomn_btm_nav_bar_example.dart';
+import 'water_drop_navbar.dart';
 
 void main() {
   runApp(const MyApp());
@@ -38,7 +42,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
         useMaterial3: true,
       ),
-      home: RSplashScreen()
+      home: AnimatedBtnNavBarExample()
     );
   }
 }
