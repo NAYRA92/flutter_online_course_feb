@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_online_course_feb/r_onboarding_screen.dart';
+import 'package:flutter_online_course_feb/raghad_app/r_onboarding_screen.dart';
 
-import 'constants.dart';
+import '../constants.dart';
 
 
 class RSplashScreen extends StatelessWidget {

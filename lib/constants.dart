@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
 
-
+//raghad colors
 Color myGreenColor = Color(0xff53B175);
 Color myGreyColor = Color(0xff4C4F4D);
+
+//shatha colors
+Color s_greenColor = Color(0xff227C70);
+Color s_blueColor = Color(0xff1C315E);
+Color s_subColor = Color(0xff88A47C);
+Color s_softColor = Color(0xffE6E2C3);
 
 Widget myCaroselImage(
   String imageAssetUrl
@@ -26,6 +32,7 @@ Widget myListViewContainer(
   String foodName,
   String details,
   String priceTag,
+  Function() fun
 ){
   return   Padding(
     padding: const EdgeInsets.all(5.0),
@@ -73,7 +80,7 @@ Widget myListViewContainer(
                                 style: IconButton.styleFrom(
                                   backgroundColor: myGreenColor
                                 ),
-                                onPressed: (){}, 
+                                onPressed: fun, 
                                 icon: Icon(Icons.add, color: Colors.white,))
                                 ],
                               )
@@ -81,5 +88,36 @@ Widget myListViewContainer(
                           ),
                         ),
                       ),
+  );
+}
+
+
+//تصميم ازرار طرق الحفاظعلى البيئة
+Widget envGridViewContainer(
+  String imgUrl,
+  String txt,
+  Function() fun
+){
+  return  GestureDetector(
+    onTap: fun,
+    child: Container(
+                  padding: EdgeInsets.all(15),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(15),
+                    boxShadow: [
+                      BoxShadow(
+                        color: const Color.fromARGB(154, 0, 0, 0),
+                        offset: Offset(0, 4),
+                        blurRadius: 4 )
+                    ]
+                  ),
+                  child: Column(
+                    children: [
+                      Image.asset(imgUrl),
+                      Text(txt, textAlign: TextAlign.center,)
+                    ],
+                  ),
+                ),
   );
 }
