@@ -1,18 +1,17 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_online_course_feb/widgets_tobe_used/course_widgets_page.dart';
-import 'package:flutter_online_course_feb/widgets_tobe_used/login_page.dart';
-
-import 'raghad_app/r_home_screen.dart';
+import 'reg_form_page.dart';
 import 's_home_screen.dart';
-import 'widgets_tobe_used/animated_btn_nav_bar_example.dart';
-import 'widgets_tobe_used/home_page.dart';
-import 'raghad_app/r_onboarding_screen.dart';
-import 'raghad_app/r_splash_screen.dart';
-import 'widgets_tobe_used/btm_nav_bar_example.dart';
-import 'widgets_tobe_used/salomn_btm_nav_bar_example.dart';
-import 'widgets_tobe_used/water_drop_navbar.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp( //unerror will appear here, but it will go as soon as you import the needed Firebase packages
+      options: FirebaseOptions(
+          apiKey: "*****************", //you will find apiKey, appId ... etc indside the google-services.json file that you download from firebase console!
+          appId: "*****************",
+          messagingSenderId: "sendid",
+          projectId: "*****************",
+          storageBucket: "*****************"));
   runApp(const MyApp());
 }
 
@@ -45,7 +44,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
         useMaterial3: true,
       ),
-      home: SHomeScreen()
+      home: RegFormPage()
     );
   }
 }
