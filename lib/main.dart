@@ -1,17 +1,20 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_online_course_feb/raghad_app/r_home_screen.dart';
+import 'raghad_app/add_new_food.dart';
 import 'reg_form_page.dart';
 import 's_home_screen.dart';
+import 'view_data.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp( //unerror will appear here, but it will go as soon as you import the needed Firebase packages
       options: FirebaseOptions(
-          apiKey: "*****************", //you will find apiKey, appId ... etc indside the google-services.json file that you download from firebase console!
-          appId: "*****************",
+          apiKey: "AIzaSyDTcDou3pm5N36dom-DWnpo-gjEMxUyxgc", //you will find apiKey, appId ... etc indside the google-services.json file that you download from firebase console!
+          appId: "234930414650",
           messagingSenderId: "sendid",
-          projectId: "*****************",
-          storageBucket: "*****************"));
+          projectId: "my-name-464f2",
+          storageBucket: "my-name-464f2.firebasestorage.app"));
   runApp(const MyApp());
 }
 
@@ -44,7 +47,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
         useMaterial3: true,
       ),
-      home: RegFormPage()
+      home: RHomeScreen()
     );
   }
 }

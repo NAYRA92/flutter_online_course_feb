@@ -31,7 +31,7 @@ Widget myListViewContainer(
   String imageUrl,
   String foodName,
   String details,
-  String priceTag,
+  int priceTag,
   Function() fun
 ){
   return   Padding(
@@ -48,7 +48,7 @@ Widget myListViewContainer(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
                               SizedBox(height: 10,),
-                              Image.asset(imageUrl, height: 62.5,),
+                              Image.network(imageUrl, height: 100.5,),
                               SizedBox(height: 10,),
                               Row(
                                 children: [
@@ -119,5 +119,22 @@ Widget envGridViewContainer(
                     ],
                   ),
                 ),
+  );
+}
+
+Widget addNewFoodTextField(
+  String _hintText,
+  TextEditingController _controller,
+  IconData _icon
+){
+  return Padding(
+    padding: const EdgeInsets.all(8.0),
+    child: TextFormField(
+                controller: _controller,
+                decoration: InputDecoration(
+                  hintText: _hintText,
+                  suffixIcon: Icon(_icon, color: myGreenColor,)
+                ),
+              ),
   );
 }

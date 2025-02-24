@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_online_course_feb/raghad_app/r_products_details_page.dart';
 
@@ -97,34 +98,28 @@ class _RHomeScreenState extends State<RHomeScreen> {
                 ),
                 Container(
                   height: 250,
-                  child: ListView(
-                    scrollDirection: Axis.horizontal,
-                    children: [
-                      myListViewContainer("images/apple.png", "Red Apple",
-                          "1kg, Priceg", "4.99", () {
-                            Navigator.push(context, 
-                            MaterialPageRoute(builder: (context)=> 
-                            RProductsDetailsPage(
-                              product_image: "images/apple.png", 
-                              product_name: "Red Apple", 
-                              product_detail: "1kg, Priceg", 
-                              product_price: "4.99")));
-                          }),
-                      myListViewContainer("images/banana.png",
-                          "Organic Bananas", "7pcs, Priceg", "3.00", () {
-                              Navigator.push(context, 
-                            MaterialPageRoute(builder: (context)=> 
-                            RProductsDetailsPage(
-                              product_image: "images/banana.png", 
-                              product_name: "Organic Bananas", 
-                              product_detail: "7pcs, Priceg", 
-                              product_price: "3.00")));
-                          }),
-                      myListViewContainer("images/apple.png", "Red Apple",
-                          "1kg, Priceg", "4.99", () {}),
-                    ],
+                  child: StreamBuilder(
+                    stream: FirebaseFirestore
+                    .instance
+                    .collection("gerocery").snapshots(), 
+                    builder: (context, AsyncSnapshot<QuerySnapshot> snapshot){
+                      final _gerocerySnapshot = snapshot.data?.docs;
+                      return ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: _gerocerySnapshot?.length,
+                        itemBuilder: (context, index) {
+                          return myListViewContainer(
+                            _gerocerySnapshot?[index]["img"], 
+                            _gerocerySnapshot?[index]["name"], 
+                            _gerocerySnapshot?[index]["category"], 
+                            _gerocerySnapshot?[index]["price"], 
+                            (){});
+                        },
+
+                      );
+
+                    })
                   ),
-                ),
 
                 //best selling part
                 SizedBox(
@@ -135,7 +130,7 @@ class _RHomeScreenState extends State<RHomeScreen> {
                   textBaseline: TextBaseline.alphabetic,
                   children: [
                     Text(
-                      "Exclusive Offer",
+                      "Fruit",
                       style: TextStyle(
                           fontSize: 24,
                           fontWeight: FontWeight.w600,
@@ -155,12 +150,12 @@ class _RHomeScreenState extends State<RHomeScreen> {
                   child: ListView(
                     scrollDirection: Axis.horizontal,
                     children: [
-                      myListViewContainer("images/apple.png", "Red Apple",
-                          "1kg, Priceg", "4.99", () {}),
-                      myListViewContainer("images/banana.png",
-                          "Organic Bananas", "7pcs, Priceg", "3.00", () {}),
-                      myListViewContainer("images/apple.png", "Red Apple",
-                          "1kg, Priceg", "4.99", () {}),
+                      // myListViewContainer("images/apple.png", "Red Apple",
+                      //     "1kg, Priceg", 4, () {}),
+                      // myListViewContainer("images/banana.png",
+                      //     "Organic Bananas", "7pcs, Priceg", 3, () {}),
+                      // myListViewContainer("images/apple.png", "Red Apple",
+                      //     "1kg, Priceg", 4, () {}),
                     ],
                   ),
                 )
