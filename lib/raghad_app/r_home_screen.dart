@@ -97,29 +97,27 @@ class _RHomeScreenState extends State<RHomeScreen> {
                   ],
                 ),
                 Container(
-                  height: 250,
-                  child: StreamBuilder(
-                    stream: FirebaseFirestore
-                    .instance
-                    .collection("gerocery").snapshots(), 
-                    builder: (context, AsyncSnapshot<QuerySnapshot> snapshot){
-                      final _gerocerySnapshot = snapshot.data?.docs;
-                      return ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        itemCount: _gerocerySnapshot?.length,
-                        itemBuilder: (context, index) {
-                          return myListViewContainer(
-                            _gerocerySnapshot?[index]["img"], 
-                            _gerocerySnapshot?[index]["name"], 
-                            _gerocerySnapshot?[index]["category"], 
-                            _gerocerySnapshot?[index]["price"], 
-                            (){});
-                        },
-
-                      );
-
-                    })
-                  ),
+                    height: 250,
+                    child: StreamBuilder(
+                        stream: FirebaseFirestore.instance
+                            .collection("gerocery")
+                            .snapshots(),
+                        builder:
+                            (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                          final _gerocerySnapshot = snapshot.data?.docs;
+                          return ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: _gerocerySnapshot?.length,
+                            itemBuilder: (context, index) {
+                              return myListViewContainer(
+                                  _gerocerySnapshot?[index]["img"],
+                                  _gerocerySnapshot?[index]["name"],
+                                  _gerocerySnapshot?[index]["category"],
+                                  _gerocerySnapshot?[index]["price"],
+                                  () {});
+                            },
+                          );
+                        })),
 
                 //best selling part
                 SizedBox(
@@ -150,6 +148,20 @@ class _RHomeScreenState extends State<RHomeScreen> {
                   child: ListView(
                     scrollDirection: Axis.horizontal,
                     children: [
+                      Text.rich(
+                        TextSpan(
+                          children: [
+                            TextSpan(
+                              text: 'multiple ',
+                              style: TextStyle(color: Colors.red),
+                            ),
+                            TextSpan(
+                              text: 'styles',
+                              style: TextStyle(color: Colors.blue),
+                            ),
+                          ],
+                        ),
+                      ),
                       // myListViewContainer("images/apple.png", "Red Apple",
                       //     "1kg, Priceg", 4, () {}),
                       // myListViewContainer("images/banana.png",
