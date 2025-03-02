@@ -1,7 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_online_course_feb/raghad_app/r_home_screen.dart';
-import 'package:flutter_online_course_feb/widgets_tobe_used/login_page.dart';
 import 'raghad_app/add_new_food.dart';
 import 'reg_form_page.dart';
 import 's_home_screen.dart';
@@ -48,7 +47,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
         useMaterial3: true,
       ),
-      home: LoginPage()
+      home: RHomeScreen()
     );
   }
 }

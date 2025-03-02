@@ -35,11 +35,17 @@ class _RProductsDetailsPageState extends State<RProductsDetailsPage> {
                     bottomRight: Radius.circular(25),
                     bottomLeft: Radius.circular(25)),
                 image: DecorationImage(
-                    image: AssetImage(widget.product_image),
+                    image: NetworkImage(widget.product_image),
                     fit: BoxFit.cover,
                     opacity: .2 //لتغيير شفافية الصورة
                     )),
-            child: Image.asset(widget.product_image),
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(25),
+                child: Image.network(
+                  widget.product_image,)),
+            ),
           ),
           Text(
             widget.product_name,

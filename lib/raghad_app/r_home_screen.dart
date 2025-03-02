@@ -10,8 +10,9 @@ class RHomeScreen extends StatefulWidget {
   @override
   State<RHomeScreen> createState() => _RHomeScreenState();
 }
-
+  int _currentIndex = 0;
 class _RHomeScreenState extends State<RHomeScreen> {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -114,7 +115,16 @@ class _RHomeScreenState extends State<RHomeScreen> {
                                   _gerocerySnapshot?[index]["name"],
                                   _gerocerySnapshot?[index]["category"],
                                   _gerocerySnapshot?[index]["price"],
-                                  () {});
+                                  () {
+                                    Navigator.push(context, 
+                                    MaterialPageRoute(builder: (context)=>
+                                    RProductsDetailsPage(
+                                      product_image: _gerocerySnapshot?[index]["img"], 
+                                      product_name: _gerocerySnapshot?[index]["name"], 
+                                      product_detail: _gerocerySnapshot?[index]["category"], 
+                                      product_price: _gerocerySnapshot![index]["price"].toString())
+                                    ));
+                                  });
                             },
                           );
                         })),
@@ -144,38 +154,105 @@ class _RHomeScreenState extends State<RHomeScreen> {
                   ],
                 ),
                 Container(
-                  height: 250,
-                  child: ListView(
-                    scrollDirection: Axis.horizontal,
-                    children: [
-                      Text.rich(
-                        TextSpan(
-                          children: [
-                            TextSpan(
-                              text: 'multiple ',
-                              style: TextStyle(color: Colors.red),
-                            ),
-                            TextSpan(
-                              text: 'styles',
-                              style: TextStyle(color: Colors.blue),
-                            ),
-                          ],
-                        ),
+                    height: 250,
+                    child: StreamBuilder(
+                        stream: FirebaseFirestore.instance
+                            .collection("gerocery")
+                            .where("category", isEqualTo: "Fruit")
+                            .snapshots(),
+                        builder:
+                            (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                          final _gerocerySnapshot = snapshot.data?.docs;
+                          return ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: _gerocerySnapshot?.length,
+                            itemBuilder: (context, index) {
+                              return myListViewContainer(
+                                  _gerocerySnapshot?[index]["img"],
+                                  _gerocerySnapshot?[index]["name"],
+                                  _gerocerySnapshot?[index]["category"],
+                                  _gerocerySnapshot?[index]["price"],
+                                  () {});
+                            },
+                          );
+                        })),
+
+                  //Diary filter
+                   SizedBox(
+                  height: 15,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  textBaseline: TextBaseline.alphabetic,
+                  children: [
+                    Text(
+                      "Diary",
+                      style: TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.w600,
+                          color: Color(0xff181725)),
+                    ),
+                    GestureDetector(
+                      onTap: (){},
+                      child: Text(
+                        "See all",
+                        style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                            color: myGreenColor),
                       ),
-                      // myListViewContainer("images/apple.png", "Red Apple",
-                      //     "1kg, Priceg", 4, () {}),
-                      // myListViewContainer("images/banana.png",
-                      //     "Organic Bananas", "7pcs, Priceg", 3, () {}),
-                      // myListViewContainer("images/apple.png", "Red Apple",
-                      //     "1kg, Priceg", 4, () {}),
-                    ],
-                  ),
-                )
+                    )
+                  ],
+                ),
+                  Container(
+                    height: 250,
+                    child: StreamBuilder(
+                        stream: FirebaseFirestore.instance
+                            .collection("gerocery")
+                            .where("category", isEqualTo: "Diary")
+                            .snapshots(),
+                        builder:
+                            (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                          final _gerocerySnapshot = snapshot.data?.docs;
+                          return ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: _gerocerySnapshot?.length,
+                            itemBuilder: (context, index) {
+                              return myListViewContainer(
+                                  _gerocerySnapshot?[index]["img"],
+                                  _gerocerySnapshot?[index]["name"],
+                                  _gerocerySnapshot?[index]["category"],
+                                  _gerocerySnapshot?[index]["price"],
+                                  () {});
+                            },
+                          );
+                        })),
               ],
             ),
           ),
         ),
       ),
+
+      //Bottom Navigation Bar
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _currentIndex,
+        onTap: (value){
+          setState(() {
+          _currentIndex = value;
+          });
+        },
+        unselectedItemColor: myGreenColor,
+        unselectedLabelStyle: TextStyle(
+          color: myGreenColor
+        ),
+        selectedItemColor: myGreyColor,
+        items:[
+          BottomNavigationBarItem(icon: Icon(Icons.store,), label: "Shop"),
+          BottomNavigationBarItem(icon: Icon(Icons.search), label: "Explore"),
+          BottomNavigationBarItem(icon: Icon(Icons.shopping_cart), label: "Cart"),
+          BottomNavigationBarItem(icon: Icon(Icons.favorite_border), label: "Favourite"),
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: "Account"),
+        ] ),
     );
   }
 }
