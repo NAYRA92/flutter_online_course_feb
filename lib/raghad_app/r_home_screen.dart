@@ -10,8 +10,17 @@ class RHomeScreen extends StatefulWidget {
   @override
   State<RHomeScreen> createState() => _RHomeScreenState();
 }
-  int _currentIndex = 0;
+
+int _currentIndex = 0;
+
 class _RHomeScreenState extends State<RHomeScreen> {
+  bool _isFavourite = false;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -114,17 +123,26 @@ class _RHomeScreenState extends State<RHomeScreen> {
                                   _gerocerySnapshot?[index]["img"],
                                   _gerocerySnapshot?[index]["name"],
                                   _gerocerySnapshot?[index]["category"],
-                                  _gerocerySnapshot?[index]["price"],
-                                  () {
-                                    Navigator.push(context, 
-                                    MaterialPageRoute(builder: (context)=>
-                                    RProductsDetailsPage(
-                                      product_image: _gerocerySnapshot?[index]["img"], 
-                                      product_name: _gerocerySnapshot?[index]["name"], 
-                                      product_detail: _gerocerySnapshot?[index]["category"], 
-                                      product_price: _gerocerySnapshot![index]["price"].toString())
-                                    ));
-                                  });
+                                  _gerocerySnapshot?[index]["price"], () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            RProductsDetailsPage(
+                                                product_image:
+                                                    _gerocerySnapshot?[index]
+                                                        ["img"],
+                                                product_name:
+                                                    _gerocerySnapshot?[index]
+                                                        ["name"],
+                                                product_detail:
+                                                    _gerocerySnapshot?[index]
+                                                        ["category"],
+                                                product_price:
+                                                    _gerocerySnapshot![index]
+                                                            ["price"]
+                                                        .toString())));
+                              });
                             },
                           );
                         })),
@@ -177,8 +195,8 @@ class _RHomeScreenState extends State<RHomeScreen> {
                           );
                         })),
 
-                  //Diary filter
-                   SizedBox(
+                //Diary filter
+                SizedBox(
                   height: 15,
                 ),
                 Row(
@@ -193,7 +211,7 @@ class _RHomeScreenState extends State<RHomeScreen> {
                           color: Color(0xff181725)),
                     ),
                     GestureDetector(
-                      onTap: (){},
+                      onTap: () {},
                       child: Text(
                         "See all",
                         style: TextStyle(
@@ -204,7 +222,7 @@ class _RHomeScreenState extends State<RHomeScreen> {
                     )
                   ],
                 ),
-                  Container(
+                Container(
                     height: 250,
                     child: StreamBuilder(
                         stream: FirebaseFirestore.instance
@@ -218,12 +236,33 @@ class _RHomeScreenState extends State<RHomeScreen> {
                             scrollDirection: Axis.horizontal,
                             itemCount: _gerocerySnapshot?.length,
                             itemBuilder: (context, index) {
-                              return myListViewContainer(
-                                  _gerocerySnapshot?[index]["img"],
-                                  _gerocerySnapshot?[index]["name"],
-                                  _gerocerySnapshot?[index]["category"],
-                                  _gerocerySnapshot?[index]["price"],
-                                  () {});
+                              return Stack(
+                                children: [
+                                  myListViewContainer(
+                                      _gerocerySnapshot?[index]["img"],
+                                      _gerocerySnapshot?[index]["name"],
+                                      _gerocerySnapshot?[index]["category"],
+                                      _gerocerySnapshot?[index]["price"],
+                                      () {}),
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: IconButton(
+                                      onPressed: () {
+                                        setState(() {
+                                          _isFavourite == false
+                                              ? _isFavourite = true
+                                              : _isFavourite = false;
+                                        });
+                                        print(_isFavourite);
+                                      },
+                                      icon: Icon(
+                                        _isFavourite == true
+                                          ? Icons.favorite_rounded
+                                          : Icons.favorite_border_outlined),
+                                    ),
+                                  )
+                                ],
+                              );
                             },
                           );
                         })),
@@ -235,24 +274,28 @@ class _RHomeScreenState extends State<RHomeScreen> {
 
       //Bottom Navigation Bar
       bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _currentIndex,
-        onTap: (value){
-          setState(() {
-          _currentIndex = value;
-          });
-        },
-        unselectedItemColor: myGreenColor,
-        unselectedLabelStyle: TextStyle(
-          color: myGreenColor
-        ),
-        selectedItemColor: myGreyColor,
-        items:[
-          BottomNavigationBarItem(icon: Icon(Icons.store,), label: "Shop"),
-          BottomNavigationBarItem(icon: Icon(Icons.search), label: "Explore"),
-          BottomNavigationBarItem(icon: Icon(Icons.shopping_cart), label: "Cart"),
-          BottomNavigationBarItem(icon: Icon(Icons.favorite_border), label: "Favourite"),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: "Account"),
-        ] ),
+          currentIndex: _currentIndex,
+          onTap: (value) {
+            setState(() {
+              _currentIndex = value;
+            });
+          },
+          unselectedItemColor: myGreenColor,
+          unselectedLabelStyle: TextStyle(color: myGreenColor),
+          selectedItemColor: myGreyColor,
+          items: [
+            BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.store,
+                ),
+                label: "Shop"),
+            BottomNavigationBarItem(icon: Icon(Icons.search), label: "Explore"),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.shopping_cart), label: "Cart"),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.favorite_border), label: "Favourite"),
+            BottomNavigationBarItem(icon: Icon(Icons.person), label: "Account"),
+          ]),
     );
   }
 }

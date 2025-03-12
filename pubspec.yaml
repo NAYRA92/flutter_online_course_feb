@@ -41,6 +41,8 @@ dependencies:
   firebase_core:
   cloud_firestore:
   percent_indicator: ^4.2.4
+  google_generative_ai:
+  flutter_markdown:
   
 
 dev_dependencies:
