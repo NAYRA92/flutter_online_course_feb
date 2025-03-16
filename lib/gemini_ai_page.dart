@@ -3,6 +3,8 @@ import 'package:flutter_online_course_feb/api_key.dart';
 import 'dart:io';
 import 'package:google_generative_ai/google_generative_ai.dart';
 
+import 'constants.dart';
+
 class GeminiAiPage extends StatefulWidget {
   const GeminiAiPage({super.key});
 
@@ -11,7 +13,7 @@ class GeminiAiPage extends StatefulWidget {
 }
   final model = GenerativeModel(
     model: 'gemini-2.0-flash',
-    apiKey: "your_api",
+    apiKey: myAPIKey,
     generationConfig: GenerationConfig(
       temperature: 1,
       topK: 40,
@@ -66,27 +68,67 @@ class _GeminiAiPageState extends State<GeminiAiPage> {
   
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              TextFormField(
-                controller: _chatMesssage,
-              ),
-              ElevatedButton(
-                onPressed: (){
-                  _generateHelloMessage(_chatMesssage.text);
-                }, 
-                child: Text("Here")),
-              Text(hello_message, textAlign: TextAlign.center,),
-            ],
+    return Directionality(
+      textDirection: TextDirection.rtl,
+      child: Scaffold(
+        body: Center(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Container(
+                  padding:  hello_message == "" ? EdgeInsets.all(0) : EdgeInsets.all(8),
+                  margin: EdgeInsets.all(5),
+                  decoration: BoxDecoration(
+                    color: myGreyColor,
+                    borderRadius: BorderRadius.circular(15)
+                  ),
+                  child: Text(
+                    hello_message, 
+                    textAlign: TextAlign.right,
+                    style: TextStyle(
+                      color: Colors.white
+                    ),)),
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(15),
+                  child: TextFormField(
+                    controller: _chatMesssage,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 14
+                    ),
+                    decoration: InputDecoration(
+                      hintText: "أكتب سؤالك عن البيئة",
+                      hintStyle: TextStyle(
+                        color: const Color.fromARGB(255, 200, 199, 199),
+                        fontSize: 11
+                      ),
+                      fillColor: const Color.fromARGB(255, 111, 55, 38),
+                      filled: true,
+                      border: InputBorder.none,
+                      suffixIcon: IconButton(
+                        onPressed: (){
+                          _generateHelloMessage(_chatMesssage.text);
+                          _chatMesssage.clear();
+                        }, 
+                        icon: Icon(Icons.send, color: Colors.white,))
+                    ),
+                  ),
+                ),
+                // SizedBox(height: 15,),
+                // ElevatedButton(
+                //   onPressed: (){
+                //     _generateHelloMessage(_chatMesssage.text);
+                //   }, 
+                //   child: Text("إبدأ")),
+               
+              ],
+            ),
           ),
-        ),
-      )
-      ,
+        )
+        ,
+      ),
     );
   }
 }

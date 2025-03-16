@@ -1,16 +1,13 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_online_course_feb/raghad_app/r_home_screen.dart';
 import 'gemini_ai_page.dart';
-import 'raghad_app/add_new_food.dart';
-import 'reg_form_page.dart';
-import 's_home_screen.dart';
-import 'view_data.dart';
+import 'widgets_tobe_used/home_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp( //unerror will appear here, but it will go as soon as you import the needed Firebase packages
-      options: FirebaseOptions(
+  await Firebase.initializeApp( 
+    //unerror will appear here, but it will go as soon as you import the needed Firebase packages
+      options: const FirebaseOptions(
           apiKey: "AIzaSyDTcDou3pm5N36dom-DWnpo-gjEMxUyxgc", //you will find apiKey, appId ... etc indside the google-services.json file that you download from firebase console!
           appId: "234930414650",
           messagingSenderId: "sendid",
@@ -22,33 +19,19 @@ void main() async {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
+  //This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // TRY THIS: Try running your application with "flutter run". You'll see
-        // the application has a purple toolbar. Then, without quitting the app,
-        // try changing the seedColor in the colorScheme below to Colors.green
-        // and then invoke "hot reload" (save your changes or press the "hot
-        // reload" button in a Flutter-supported IDE, or press "r" if you used
-        // the command line to start the app).
-        //
-        // Notice that the counter didn't reset back to zero; the application
-        // state is not lost during the reload. To reset the state, use hot
-        // restart instead.
-        //
-        // This works for code too, not just values: Most code changes can be
-        // tested with just a hot reload.
         fontFamily: "ElMessiri", //Gilroy
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: const Color.fromARGB(255, 0, 83, 49),),
         useMaterial3: true,
       ),
-      home: GeminiAiPage()
+      home: const HomePage()
     );
   }
 }
