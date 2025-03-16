@@ -90,6 +90,14 @@ class _GeminiAiPageState extends State<GeminiAiPage> {
                     style: TextStyle(
                       color: Colors.white
                     ),)),
+              ],
+            ),
+          ),
+        ),
+        bottomNavigationBar: BottomAppBar(
+          height: 100,
+          child: Column(
+            children: [
                 ClipRRect(
                   borderRadius: BorderRadius.circular(15),
                   child: TextFormField(
@@ -116,18 +124,12 @@ class _GeminiAiPageState extends State<GeminiAiPage> {
                     ),
                   ),
                 ),
-                // SizedBox(height: 15,),
-                // ElevatedButton(
-                //   onPressed: (){
-                //     _generateHelloMessage(_chatMesssage.text);
-                //   }, 
-                //   child: Text("إبدأ")),
-               
-              ],
-            ),
+                SizedBox(
+                  height: 10,
+                )
+            ],
           ),
-        )
-        ,
+        ),
       ),
     );
   }
