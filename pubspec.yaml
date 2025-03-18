@@ -44,6 +44,9 @@ dependencies:
   google_generative_ai:
   flutter_markdown:
   lottie:
+  clipboard:
+  animated_text_kit:
+  flutter_animate:
   
 
 dev_dependencies:

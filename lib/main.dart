@@ -1,5 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_online_course_feb/raghad_app/r_splash_screen.dart';
+import 'package:flutter_online_course_feb/widgets_tobe_used/animated_widget_page.dart';
 import 'gemini_ai_page.dart';
 import 'widgets_tobe_used/home_page.dart';
 
@@ -31,7 +33,7 @@ class MyApp extends StatelessWidget {
           seedColor: const Color.fromARGB(255, 0, 83, 49),),
         useMaterial3: true,
       ),
-      home: const HomePage()
+      home: const RSplashScreen()
     );
   }
 }
